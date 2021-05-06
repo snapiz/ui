@@ -8,7 +8,8 @@
     "build:clean": "rm -rf dist/main.d.ts dist/App.d.ts dist/routes",
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{js,ts,tsx}' --max-warnings=0 --no-ignore",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "postversion": "cp -r package.json .."
   },
   "files": [
     "dist"
