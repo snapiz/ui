@@ -26,4 +26,5 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - run: yarn build
+      - run: mkdir build && mv dist build/ && mv package.json build/
       - run: ./node_modules/.bin/semantic-release
