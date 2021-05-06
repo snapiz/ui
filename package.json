@@ -73,7 +73,6 @@
     "react-intl": "^5.16.0",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
-    "semantic-release": "^17.4.2",
     "ss-search": "^1.5.21",
     "typescript": "^4.1.2",
     "valtio": "^1.0.4",
