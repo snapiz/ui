@@ -3,6 +3,7 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "baseUrl": "./",
+    "outDir": "./dist",
     "paths": {
       "*": ["src/*"]
     },
@@ -17,7 +18,8 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "jsx": "react"
   },
   "include": ["./src"]

@@ -6,6 +6,16 @@ on:
       - main
 
 jobs:
+  audit:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - run: yarn audit
+
   release:
     runs-on: ubuntu-latest
     environment:
@@ -23,8 +33,10 @@ jobs:
       - name: Install dependencies
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
-      - run: yarn build
-      - run: mkdir build && mv dist build/ && mv package.json build/
+      - name: Build
+        run: yarn build && yarn build:types && yarn build:clean
+      - name: Create package
+        run: mkdir build && mv dist build/ && mv package.json build/
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
