@@ -1,0 +1,13 @@
+branches:
+  - "main"
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/release-notes-generator"
+  - path: "@semantic-release/npm"
+    pkgRoot: "dist"
+  - path: "@semantic-release/github"
+    assets:
+      - "dist/**/*"
+  - path: "@semantic-release/git"
+    assets:
+      - "package.json"

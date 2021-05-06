@@ -1,21 +1,12 @@
-name: "Testing"
+name: "Release"
 
-on: pull_request
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  audit:
-    runs-on: ubuntu-latest
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-
-      - run: yarn audit
-
-  lint:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,4 +25,5 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn install --frozen-lockfile
 
-      - run: yarn lint
+      - run: yarn build
+      - run: ./node_modules/.bin/semantic-release
