@@ -7,7 +7,7 @@ plugins:
     pkgRoot: "build"
   - path: "@semantic-release/github"
     assets:
-      - "dist/**/*"
+      - "dist/**/*.js"
   - path: "@semantic-release/git"
     assets:
       - "package.json"
