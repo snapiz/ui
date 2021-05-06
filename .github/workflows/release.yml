@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: yarn build && yarn build:types && yarn build:clean
       - name: Create package
-        run: mkdir build && mv dist build/ && mv package.json build/
+        run: mkdir build && mv dist build/ && cp package.json build/
       - name: Release
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
