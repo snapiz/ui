@@ -1,3 +1,3 @@
 export default {
-  "table.title": "Page tableau",
+  "table.title": "Page tableau under construction",
 };
