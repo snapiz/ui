@@ -100,6 +100,12 @@ const Container: React.FC = () => {
       navigations={navigations}
       navbarNavigations={navbarNavigations}
       services={services}
+      serviceSearchInputProps={{
+        placeholder: intl.formatMessage({
+          id: "ui.layout.navbar.serviceSearch.title",
+          defaultMessage: "Search service",
+        }),
+      }}
       user={{
         name: "John Doe",
         picture: "https://bit.ly/dan-abramov",

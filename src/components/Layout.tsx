@@ -28,9 +28,8 @@ import { IoIosApps } from "react-icons/io";
 import { FiCircle, FiMenu } from "react-icons/fi";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useIntl } from "react-intl";
-import MenuSearchInput from "./menu/MenuSearchInput";
 import { search } from "ss-search";
+import MenuSearchInput, { MenuInputProps } from "./menu/MenuSearchInput";
 
 const SERVICE_SEARCH_KEYS = ["name"];
 
@@ -67,9 +66,18 @@ const Layout: React.FC<{
   logo: React.ReactElement | string;
   navigations?: LayoutNavigation[];
   services: LayoutService[];
+  serviceSearchInputProps?: MenuInputProps;
   user?: LayoutUser;
   navbarNavigations: (LayoutService | null)[];
-}> = ({ children, logo, navigations, user, services, navbarNavigations }) => {
+}> = ({
+  children,
+  logo,
+  navigations,
+  user,
+  services,
+  navbarNavigations,
+  serviceSearchInputProps,
+}) => {
   return (
     <>
       {navigations && <Sidebar logo={logo} navigations={navigations} fixed />}
@@ -81,6 +89,7 @@ const Layout: React.FC<{
         navigations={navigations}
         userNavigations={navbarNavigations}
         services={services}
+        serviceSearchInputProps={serviceSearchInputProps}
       />
 
       <Box
@@ -100,12 +109,20 @@ const Navbar: React.FC<{
   navigations?: LayoutNavigation[];
   userNavigations: (LayoutService | null)[];
   services: LayoutService[];
+  serviceSearchInputProps?: MenuInputProps;
   user?: LayoutUser;
   boxed: boolean;
-}> = ({ boxed, user, services, navigations, userNavigations, logo }) => {
+}> = ({
+  boxed,
+  user,
+  services,
+  navigations,
+  userNavigations,
+  logo,
+  serviceSearchInputProps,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef<HTMLButtonElement | null>(null);
-  const intl = useIntl();
   const [serviceSearchInput, setServiceSearchInput] = useState("");
   const [serviceItems, setServiceItems] = useState<
     Map<string, LayoutService[]> | undefined
@@ -196,10 +213,7 @@ const Navbar: React.FC<{
                 <MenuSearchInput
                   containerProps={{ mb: 3, gridColumn: "1/4" }}
                   onChange={(e) => setServiceSearchInput(e.target.value)}
-                  placeholder={intl.formatMessage({
-                    id: "ui.layout.navbar.serviceSearch.title",
-                    defaultMessage: "Search service",
-                  })}
+                  {...serviceSearchInputProps}
                 />
 
                 {serviceItems &&

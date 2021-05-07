@@ -1,10 +1,14 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
-import { proxy, useSnapshot, subscribe } from "valtio";
+import { proxy, useSnapshot, subscribe, DeepResolveType } from "valtio";
 
 const LANG_KEY = "__ui_lazy_intl_lang";
 
-const state = proxy({
+export interface LazyIntlState {
+  lang: string;
+}
+
+const state = proxy<LazyIntlState>({
   lang:
     localStorage.getItem(LANG_KEY) ||
     navigator.language?.split(/-|_/)[0] ||
@@ -17,6 +21,10 @@ const cache = new Map();
 
 export function changeLanguage(lng: string): void {
   state.lang = lng;
+}
+
+export function useLazyIntl(): DeepResolveType<LazyIntlState> {
+  return useSnapshot(state);
 }
 
 export interface LazyIntlProviderProps {

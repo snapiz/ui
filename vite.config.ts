@@ -18,7 +18,7 @@ export default defineConfig({
           "react-intl": "ReactIntl",
           "ss-search": "SsSearch",
           "@chakra-ui/react": "ChakraUI",
-          "valtio": "Valtio",
+          valtio: "Valtio",
         },
       },
     },
