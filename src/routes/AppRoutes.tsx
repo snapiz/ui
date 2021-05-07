@@ -98,8 +98,7 @@ const Container: React.FC = () => {
     <Layout
       logo={<Link to="/">Timada UI</Link>}
       navigations={navigations}
-      navbarNavigations={navbarNavigations}
-      services={services}
+      navbarData={{ services, navigations: navbarNavigations }}
       serviceSearchInputProps={{
         placeholder: intl.formatMessage({
           id: "ui.layout.navbar.serviceSearch.title",

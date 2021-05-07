@@ -62,20 +62,23 @@ export interface LayoutService {
   group?: string;
 }
 
+export interface LayoutNavBarData {
+  services: LayoutService[];
+  navigations: (LayoutService | null)[];
+}
+
 const Layout: React.FC<{
   logo: React.ReactElement | string;
   navigations?: LayoutNavigation[];
-  services: LayoutService[];
+  navbarData: LayoutNavBarData;
   serviceSearchInputProps?: MenuInputProps;
   user?: LayoutUser;
-  navbarNavigations: (LayoutService | null)[];
 }> = ({
   children,
   logo,
   navigations,
   user,
-  services,
-  navbarNavigations,
+  navbarData,
   serviceSearchInputProps,
 }) => {
   return (
@@ -87,8 +90,7 @@ const Layout: React.FC<{
         logo={logo}
         user={user}
         navigations={navigations}
-        userNavigations={navbarNavigations}
-        services={services}
+        navbarData={navbarData}
         serviceSearchInputProps={serviceSearchInputProps}
       />
 
@@ -107,17 +109,15 @@ const Layout: React.FC<{
 const Navbar: React.FC<{
   logo: React.ReactElement | string;
   navigations?: LayoutNavigation[];
-  userNavigations: (LayoutService | null)[];
-  services: LayoutService[];
+  navbarData: LayoutNavBarData;
   serviceSearchInputProps?: MenuInputProps;
   user?: LayoutUser;
   boxed: boolean;
 }> = ({
   boxed,
+  navbarData,
   user,
-  services,
   navigations,
-  userNavigations,
   logo,
   serviceSearchInputProps,
 }) => {
@@ -131,11 +131,11 @@ const Navbar: React.FC<{
   useEffect(() => {
     const filtered = serviceSearchInput
       ? (search(
-          services,
+          navbarData.services,
           SERVICE_SEARCH_KEYS,
           serviceSearchInput
         ) as LayoutService[])
-      : services;
+      : navbarData.services;
 
     const groupByName = filtered.reduce(
       (acc: Map<string, LayoutService[]>, s: LayoutService) => {
@@ -154,7 +154,7 @@ const Navbar: React.FC<{
     );
 
     setServiceItems(groupByName);
-  }, [services, serviceSearchInput, setServiceItems]);
+  }, [navbarData, serviceSearchInput, setServiceItems]);
 
   return (
     <>
@@ -241,7 +241,7 @@ const Navbar: React.FC<{
                   <Avatar h="10" w="10" name={user.name} src={user.picture} />
                 </MenuButton>
                 <MenuList>
-                  {userNavigations.map((navigation, i) =>
+                  {navbarData.navigations.map((navigation, i) =>
                     navigation ? (
                       <MenuItem
                         key={navigation.url}
