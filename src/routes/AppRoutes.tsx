@@ -3,7 +3,6 @@ import {
   LazyIntlProvider,
   LayoutNavigation,
   useQueryNavbarData,
-  useLazyIntl,
 } from "lib";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -13,8 +12,6 @@ import {
   Alert,
   AlertDescription,
   AlertIcon,
-  Box,
-  Button,
   Icon,
   Spinner,
 } from "@chakra-ui/react";
@@ -40,7 +37,6 @@ const AppRoutes: React.FC = () => {
 
 const Container: React.FC = () => {
   const intl = useIntl();
-  const [, changeLng] = useLazyIntl();
   const { isLoading, data: navbarData } = useQueryNavbarData("navbarData");
 
   if (isLoading) {
@@ -121,10 +117,6 @@ const Container: React.FC = () => {
         picture: "https://bit.ly/dan-abramov",
       }}
     >
-      <Box>
-        <Button onClick={() => changeLng("fr")}>fr</Button>
-        <Button onClick={() => changeLng("en")}>en</Button>
-      </Box>
       <React.Suspense fallback={null}>
         <Routes>
           <Route path="forms/*" element={<FormsRoutes />} />
