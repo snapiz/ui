@@ -1,6 +1,7 @@
 export {
   default as LazyIntlProvider,
   changeLanguage,
+  useLazyIntl,
 } from "./components/LazyIntlProvider";
 export { default as Timada } from "./components/Timada";
 export { default as Layout } from "./components/Layout";
