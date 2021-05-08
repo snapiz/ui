@@ -1,14 +1,19 @@
 import { Timada } from "lib";
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+import { QueryClientProvider, QueryClient } from "react-query";
 import AppRoutes from "routes/AppRoutes";
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => {
   return (
     <Timada>
-      <Router>
-        <AppRoutes />
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </QueryClientProvider>
     </Timada>
   );
 };

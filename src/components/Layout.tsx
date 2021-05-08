@@ -162,6 +162,7 @@ const Navbar: React.FC<{
         pos="fixed"
         float="right"
         right="0"
+        zIndex="dropdown"
         width={[
           "100%",
           null,

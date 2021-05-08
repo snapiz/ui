@@ -27,7 +27,7 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: /^(lib|theme)/, replacement: "/src/$1" },
-      { find: /^(routes|components|utils)\//, replacement: "/src/$1/" },
+      { find: /^(routes|components|utils|hooks)\//, replacement: "/src/$1/" },
     ],
   },
 

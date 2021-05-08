@@ -1,0 +1,23 @@
+{
+  "services": [
+    { "name": "Tableau de bord", "url": "/dashboard" },
+    { "name": "Typography", "url": "/typography", "group": "User interface" },
+    {
+      "name": "Input",
+      "url": "/forms/elements/input",
+      "group": "Form & Table"
+    },
+    { "name": "Tableau", "url": "/forms/Table", "group": "Form & Table" }
+  ],
+  "navigations": [
+    {
+      "name": "Profile",
+      "url": "/profile"
+    },
+    null,
+    {
+      "name": "Logout",
+      "url": "/logout"
+    }
+  ]
+}

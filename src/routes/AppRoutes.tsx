@@ -1,9 +1,23 @@
-import { Layout, LazyIntlProvider, LayoutNavigation, LayoutService } from "lib";
+import {
+  Layout,
+  LazyIntlProvider,
+  LayoutNavigation,
+  useQueryNavbarData,
+  useLazyIntl,
+} from "lib";
 import React from "react";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Routes, Route, Navigate, Link } from "react-router-dom";
 import { FiCopy, FiServer } from "react-icons/fi";
-import { Icon } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  Box,
+  Button,
+  Icon,
+  Spinner,
+} from "@chakra-ui/react";
 import { ROUTES } from "./constants";
 import { ROUTES as FORM_ROUTES } from "./forms/constants";
 import { ROUTES as FORM_ELEMENTS_ROUTES } from "./forms/elements/constants";
@@ -26,6 +40,27 @@ const AppRoutes: React.FC = () => {
 
 const Container: React.FC = () => {
   const intl = useIntl();
+  const [, changeLng] = useLazyIntl();
+  const { isLoading, data: navbarData } = useQueryNavbarData("navbarData");
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!navbarData) {
+    return (
+      <Alert status="error">
+        <AlertIcon />
+        <AlertDescription>
+          <FormattedMessage
+            id="layout.navbar.alertDescriptionError"
+            defaultMessage="Failed to load navbar data"
+          />
+        </AlertDescription>
+      </Alert>
+    );
+  }
+
   const navigations: LayoutNavigation[] = [
     {
       title: (
@@ -70,35 +105,11 @@ const Container: React.FC = () => {
     },
   ];
 
-  const services: LayoutService[] = [
-    { name: "Dashboard", url: "/dashboard" },
-    { name: "Typography", url: "/typography", group: "User interface" },
-    { name: "Input", url: FORM_ELEMENTS_ROUTES.INPUT, group: "Form & Table" },
-    { name: "Table", url: FORM_ROUTES.TABLE, group: "Form & Table" },
-  ];
-
-  const navbarNavigations: (LayoutService | null)[] = [
-    {
-      name: intl.formatMessage({
-        id: "layout.navbar.profile",
-        defaultMessage: "Profile",
-      }),
-      url: "/profile",
-    },
-    null,
-    {
-      name: intl.formatMessage({
-        id: "layout.navbar.logout",
-        defaultMessage: "Logout",
-      }),
-      url: "/logout",
-    },
-  ];
   return (
     <Layout
       logo={<Link to="/">Timada UI</Link>}
       navigations={navigations}
-      navbarData={{ services, navigations: navbarNavigations }}
+      navbarData={navbarData}
       serviceSearchInputProps={{
         placeholder: intl.formatMessage({
           id: "ui.layout.navbar.serviceSearch.title",
@@ -110,6 +121,10 @@ const Container: React.FC = () => {
         picture: "https://bit.ly/dan-abramov",
       }}
     >
+      <Box>
+        <Button onClick={() => changeLng("fr")}>fr</Button>
+        <Button onClick={() => changeLng("en")}>en</Button>
+      </Box>
       <React.Suspense fallback={null}>
         <Routes>
           <Route path="forms/*" element={<FormsRoutes />} />
