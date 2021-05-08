@@ -9,5 +9,6 @@ export type {
   LayoutNavigationItem,
   LayoutNavigationSubItem,
   LayoutService,
+  LayoutNavBarData,
 } from "./components/Layout";
 export { default as MenuSearchInput } from "./components/menu/MenuSearchInput";
