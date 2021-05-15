@@ -16,6 +16,7 @@ export default defineConfig({
           "react-dom": "ReactDOM",
           "react-router-dom": "ReactRouterDOM",
           "react-intl": "ReactIntl",
+          "react-query": "ReactQuery",
           "ss-search": "SsSearch",
           "@chakra-ui/react": "ChakraUI",
           valtio: "Valtio",
